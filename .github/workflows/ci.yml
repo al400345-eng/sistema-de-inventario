@@ -1,0 +1,21 @@
+name: CI Pipeline - Sistema Inventario
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  verificacion-inicial:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Validar presencia de documentación y estructura
+        run: |
+          test -d docs && test -d src && test -d tests
+          test -f docs/configuracion.md
+          test -f docs/despliegue.md
+          echo "Estructura DevOps verificada correctamente."
